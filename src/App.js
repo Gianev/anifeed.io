@@ -7,23 +7,23 @@ function App() {
 	const [animeList, setAnimeList] = useState([]);
 	const [topAnime, setTopAnime] = useState([]);
 	const [search, setSearch] = useState("");
-	
+	const [ma, setMA] = useState("anime");
 
 	const handleClickManga = () =>{
-		if (mangaanime == "manga"){
-			mangaanime = "anime"
+		if (ma == "manga"){
+			setMA("anime")
 		}
 		else{
-			mangaanime = "manga";
+			setMA("manga")
 		}
 	
 		GetTopAnime();
-	console.log(mangaanime);
+
 	}
 
 
 	const GetTopAnime = async () => {
-		const temp = await fetch (`https://api.jikan.moe/v4/top/` + mangaanime)
+		const temp = await fetch (`https://api.jikan.moe/v4/top/` + ma)
 		.then(res => res.json());
 
 		setTopAnime(temp.data);
@@ -42,7 +42,7 @@ function App() {
 
 
 	const FetchAnime = async (query) =>{
-		const temp = await fetch(`https://api.jikan.moe/v4/` + mangaanime + `?q=${query}&limit=15`)
+		const temp = await fetch(`https://api.jikan.moe/v4/` + ma+ `?q=${query}&limit=15`)
 
 		const tempdata = await temp.json();
 		console.log(tempdata.data);
@@ -54,7 +54,7 @@ function App() {
     	<div className="App">
       		<Navbar/>
 			<div className = "content-wrap">
-				<button onClick={handleClickManga}> Toggle Between Manga and Anime </button>
+				<button className="toggle" onClick={handleClickManga}> Toggle Between Manga and Anime </button>
 
 			</div>
 
